@@ -8,9 +8,11 @@
 #define mod 1000000007
 using namespace std;
 
-int stringHash(string s){
+const int p1 = 31;
+const int p2 = 61;
+
+int stringHash(string s, const int p){
     int n = s.length();
-    const int p = 31;
     ll p_pow = 1;
     ll hash = 0;
     for(int i = 0; i < n; i++){
@@ -28,6 +30,9 @@ int main(){
     while(T--){
         string s;
         cin >> s;
-        cout << stringHash(s) << endl;
+        int hash1 = stringHash(s, p1);
+        int hash2 = stringHash(s, p2);
+        cout << "Hash1: " << hash1 << endl;
+        cout << "Hash2: " << hash2 << endl;
     }
 }
