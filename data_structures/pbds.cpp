@@ -8,7 +8,7 @@ using namespace __gnu_pbds;
 typedef tree<
 int,
 null_type,
-less<int>,
+less<int>,      //Comparator function goes here... for decreasing order use std::greater
 rb_tree_tag,
 tree_order_statistics_node_update>
 ordered_set;
@@ -23,6 +23,10 @@ int main() {
         pbds.insert(a);
     }
     cout << pbds.size() << endl;
+    for(int a : pbds){
+        cout << a << ' ';
+    }
+    cout << endl;
     for(int i = 0; i < n; i++){
         cout << *pbds.find_by_order(i) << ' ';
     }
@@ -30,6 +34,7 @@ int main() {
     for(int i = 0 ; i < n; i++){
         cout << pbds.order_of_key(arr[i]) << ' ';
     }
+    cout << endl;
     cout << *pbds.find(4) << endl;
     cout << endl;
 }
