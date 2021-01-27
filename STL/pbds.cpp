@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
 
 using namespace std;
 using namespace __gnu_pbds;
@@ -11,13 +11,13 @@ null_type,
 less<int>,      //Comparator function goes here... for decreasing order use std::greater
 rb_tree_tag,
 tree_order_statistics_node_update>
-ordered_set;
+indexed_set;
 
 int main() {
     int n;
     cin >> n;
     vector<int> arr(n);
-    ordered_set pbds;
+    indexed_set pbds;
     for(int& a: arr){
         cin >> a;
         pbds.insert(a);
