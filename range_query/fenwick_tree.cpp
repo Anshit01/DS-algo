@@ -9,57 +9,53 @@ typedef long long ll;
 const int mod = 1e9+7;
 using namespace std;
 
-
-struct FenwickTree {
+class FenwickTree {
     vector<int> tree;
     int size;
-
+public:
     FenwickTree(int size){
-        this->size = size + 1;
-        tree.assign(size + 1, 0);
+        this->size = size;
+        tree.assign(size, 0);
     }
 
-    FenwickTree(vector<int>& arr){
-        this->size = arr.size() + 1;
-        tree.assign(size + 1, 0);
-        for(int i = 1; i <= size; i++){
-            add(i, arr[i-1]);
+    FenwickTree(vector<int>& arr) : FenwickTree(arr.size()){
+        for(int i = 0; i < size; i++){
+            add(i, arr[i]);
         }
     }
 
-    void add(int k, int x){
-        while(k <= size){
-            tree[k] += x;
-            k += k&-k;
+    void add(int i, int val){
+        while(i < size){
+            tree[i] += val;
+            i = i | (i+1);
         }
     }
 
-    int sum(int k){
+    int sum(int i){
         int s = 0;
-        while(k > 0){
-            s += tree[k];
-            k -= k&-k;
+        while(i >= 0){
+            s += tree[i];
+            i = (i & (i+1)) - 1;
         }
         return s;
     }
 
-    int sum(int l, int r){
+    int query(int l, int r){
         return sum(r) - sum(l-1);
     }
 };
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, q;
+    cin >> n >> q;
     vector<int> a(n);
     inputArray(a);
     FenwickTree tree(a);
-    int q;
-    cin >> q;
+    tree.add(2, 100);
     f(i, 0, q){
         int l, r;
         cin >> l >> r;
-        cout << tree.sum(l, r) << endl;
+        cout << tree.query(l - 1, r - 1) << endl;
     }
 }
 
