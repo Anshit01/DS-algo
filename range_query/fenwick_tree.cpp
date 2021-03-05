@@ -10,11 +10,24 @@ const int mod = 1e9+7;
 using namespace std;
 
 class FenwickTree {
+    vector<int> arr;
     vector<int> tree;
-    int size;
+
+    int sum(int i){
+        int s = 0;
+        while(i >= 0){
+            s += tree[i];
+            i = (i & (i+1)) - 1;
+        }
+        return s;
+    }
+
 public:
+    int size;
+
     FenwickTree(int size){
         this->size = size;
+        arr.assign(size, 0);
         tree.assign(size, 0);
     }
 
@@ -25,19 +38,20 @@ public:
     }
 
     void add(int i, int val){
+        arr[i] += val;
         while(i < size){
             tree[i] += val;
             i = i | (i+1);
         }
     }
 
-    int sum(int i){
-        int s = 0;
-        while(i >= 0){
-            s += tree[i];
-            i = (i & (i+1)) - 1;
+    void update(int i, int val){
+        int curVal = arr[i];
+        arr[i] = val;
+        while(i < size){
+            tree[i] += val - curVal;
+            i = i | (i+1);
         }
-        return s;
     }
 
     int query(int l, int r){
